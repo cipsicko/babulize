@@ -10,16 +10,16 @@ const country = (alternate) => {
         </a>
     `;
 };
-const buildSelection = (alternates, active) => {
+const buildSelection = (alternates) => {
 
-    if(alternates && active){
+    if(alternates && activeTab){
         const countrySelector = document.querySelector('#countrySelector');
         countrySelector.innerHTML = '';
         alternates.forEach(alternate => {
 
             //Keep the origin anche the search parameter but change only the path name
             let alternateUrl = new URL(alternate.href);
-            let activeUrl = new URL(active);
+            let activeUrl = new URL(activeTab.url);
             alternate.relativeUrl = `${activeUrl.origin}${alternateUrl.pathname}${activeUrl.search}`;
             countrySelector.insertAdjacentHTML('beforeend', country(alternate));
         });
@@ -39,20 +39,6 @@ const buildSelection = (alternates, active) => {
         countrySelector.insertAdjacentText('beforebegin', 'Please wait until page is fully loaded, than reopen me!');
     }
 };
-
-/**
- * Refresh data
- */
-document.querySelector('#refresh').addEventListener('click', (ev) => {
-    ev.preventDefault();
-    console.log('click');
-    document.querySelector('#statusMessage').classList.add('loading');
-    getData()
-        .then(() => {
-            console.log('finito');
-            document.querySelector('#statusMessage').classList.remove('loading');
-        });
-});
 
 /**
  * Build summary
@@ -75,19 +61,45 @@ const printSummary = (currentPageData) => {
 /**
  * Comunications
  */
-const getData = () => {
-    return new Promise(resolve => {
-        chrome.runtime.sendMessage({
-            message: "get_data"
-            }, response => {
-                if (response.message === 'success') {
-                    console.log('gettin data');
-                    buildSelection(response.alternate, response.activeUrl);
-                    printSummary(response.currentPageData);
-                    resolve();
-                }
-            }
-        );
-    });
+const getData = (request) => {
+    buildSelection(request.alternateLang, request.activeUrl);
+    printSummary(request.currentPageData);
 };
-getData();
+
+async function getCurrentTab() {
+    let queryOptions = { active: true, lastFocusedWindow: true };
+    // `tab` will either be a `tabs.Tab` instance or `undefined`.
+    let [tab] = await chrome.tabs.query(queryOptions);
+    return tab;
+}
+
+let activeTab = undefined;
+getCurrentTab()
+.then((tab) => {
+    activeTab = tab;
+    chrome.scripting.executeScript({
+        target: {tabId: tab.id, allFrames: true},
+        files: ['./js/c_script.js'],
+    },
+    () => {
+        console.log('script executed');
+    });
+});
+
+chrome.runtime.onMessage.addListener(
+    (request, sender, sendResponse) => {
+
+        getCurrentTab()
+        .then((tab) => {
+            console.log('request from listener', {
+                tab: tab,
+                request: request,
+                sender: sender,
+                sendResponse: sendResponse
+            });
+
+            getData(request);
+        })
+
+    }
+);

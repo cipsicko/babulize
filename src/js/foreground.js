@@ -23,9 +23,3 @@ chrome.runtime.sendMessage({
     alternate: alternateLang,
     currentPageData: currentPageData
 });
-
-// window.onunload = () => {
-//     chrome.runtime.sendMessage({ 
-//         message: "delete_data"
-//     });
-// }
