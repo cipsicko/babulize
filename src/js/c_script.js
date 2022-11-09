@@ -1,23 +1,16 @@
-let alternateLang = [];
-document.querySelectorAll('link[rel="alternate"]').forEach(lang => { 
-
-    //The hreflang attribute is not set while user is viewing that coutry
-    if(!lang.getAttribute('hreflang')){
-        return;
-    }
-
-    alternateLang.push({
-        'hreflang' : lang.getAttribute('hreflang'),
-        'href' : lang.getAttribute('href')
-    });
-});
-
-let currentPageData = {
-    title: document.querySelector('meta[name="title"]').getAttribute('content'),
-    pageLang: document.querySelector('html').getAttribute('lang')
-}
-
 chrome.runtime.sendMessage({
-    alternateLang: alternateLang,
-    currentPageData: currentPageData
+    action: 'send-data',
+    alternateLang: getAlternateLang(),
+    currentPageData: currentPageData(),
+    pageData: {}
 }, function(response) {});
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        console.log(sender.tab ?
+            "from a content script:" + sender.tab.url :
+            "from the extension");
+        if (request.greeting === "hello")
+        sendResponse({farewell: "goodbye"});
+    }
+);

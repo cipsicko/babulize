@@ -1,0 +1,22 @@
+{
+  "name": "baburlize",
+  "version": "1.0.0",
+  "description": "Show the current browser tab in another way",
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuxotticaContentTeam/lux-extension.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuxotticaContentTeam/lux-extension/issues"
+  },
+  "homepage": "https://github.com/LuxotticaContentTeam/lux-extension#readme"
+}

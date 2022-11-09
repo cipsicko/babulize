@@ -5,39 +5,37 @@
 const country = (alternate) => {
     return `
         <a data-location="${alternate.relativeUrl}" href="#"">
-            <img src="https://countryflagsapi.com/svg/${alternate.hreflang.split('-')[1]}" />
+            <img src="https://flagcdn.com/${alternate.hreflang.split('-')[1].toLowerCase()}.svg" />
             <span>${alternate.hreflang.toUpperCase()}</span>
         </a>
     `;
 };
-const buildSelection = (alternates) => {
+const buildSelection = (currentPageData) => {
 
-    if(alternates && activeTab){
-        const countrySelector = document.querySelector('#countrySelector');
-        countrySelector.innerHTML = '';
-        alternates.forEach(alternate => {
+    const countrySelector = document.querySelector('#countrySelector');
+    countrySelector.innerHTML = '';
+    let activeUrl = new URL(currentPageData.url);
 
-            //Keep the origin anche the search parameter but change only the path name
-            let alternateUrl = new URL(alternate.href);
-            let activeUrl = new URL(activeTab.url);
-            alternate.relativeUrl = `${activeUrl.origin}${alternateUrl.pathname}${activeUrl.search}`;
-            countrySelector.insertAdjacentHTML('beforeend', country(alternate));
-        });
-    
-        countrySelector.querySelectorAll('a').forEach(el => {
-            el.addEventListener('click', (ev) => {
-                ev.preventDefault();
+    currentPageData.alternateLang.forEach(alternate => {
 
-                let location = el.getAttribute('data-location');
-                chrome.tabs.create({
-                    url: location
-                });
-    
-            })
-        });
-    }else{
-        countrySelector.insertAdjacentText('beforebegin', 'Please wait until page is fully loaded, than reopen me!');
-    }
+        //Keep the origin anche the search parameter but change only the path name
+        let alternateUrl = new URL(alternate.href);
+        alternate.relativeUrl = `${activeUrl.origin}${alternateUrl.pathname}${activeUrl.search}`;
+        countrySelector.insertAdjacentHTML('beforeend', country(alternate));
+
+    });
+
+    countrySelector.querySelectorAll('a').forEach(el => {
+        el.addEventListener('click', (ev) => {
+            ev.preventDefault();
+
+            let location = el.getAttribute('data-location');
+            chrome.tabs.create({
+                url: location
+            });
+
+        })
+    });
 };
 
 /**
@@ -49,9 +47,9 @@ const printSummary = (currentPageData) => {
     const summaryPageTitle = document.createElement('p');
     const summaryCurrentLang = document.createElement('p');
 
-    summaryPageTitle.innerHTML = currentPageData.title;
+    summaryPageTitle.innerHTML = currentPageData.pageTitle;
     summaryPageTitle.className = "summary--title";
-    summaryCurrentLang.innerHTML = `<img src="https://countryflagsapi.com/svg/${currentPageData.pageLang.split('-')[1]}" />`;
+    summaryCurrentLang.innerHTML = `<img src="https://flagcdn.com/${currentPageData.pageLang.split('-')[1].toLowerCase()}.svg" />`;
     summaryCurrentLang.className = "summary--lang";
 
     summaryEL.appendChild(summaryCurrentLang);
@@ -59,47 +57,14 @@ const printSummary = (currentPageData) => {
 }
 
 /**
- * Comunications
+ * Check if storage has the correct data and hide the spinner
  */
-const getData = (request) => {
-    buildSelection(request.alternateLang, request.activeUrl);
-    printSummary(request.currentPageData);
-};
-
-async function getCurrentTab() {
-    let queryOptions = { active: true, lastFocusedWindow: true };
-    // `tab` will either be a `tabs.Tab` instance or `undefined`.
-    let [tab] = await chrome.tabs.query(queryOptions);
-    return tab;
-}
-
-let activeTab = undefined;
-getCurrentTab()
-.then((tab) => {
-    activeTab = tab;
-    chrome.scripting.executeScript({
-        target: {tabId: tab.id, allFrames: true},
-        files: ['./js/c_script.js'],
-    },
-    () => {
-        console.log('script executed');
-    });
-});
-
-chrome.runtime.onMessage.addListener(
-    (request, sender, sendResponse) => {
-
-        getCurrentTab()
-        .then((tab) => {
-            console.log('request from listener', {
-                tab: tab,
-                request: request,
-                sender: sender,
-                sendResponse: sendResponse
-            });
-
-            getData(request);
-        })
-
+ chrome.storage.local.get(['currentTabData'], function(result) {
+     console.log('Value currently is ', result.currentTabData);
+    if(!result.currentTabData){
+        //No data set
+    }else{
+        buildSelection(result.currentTabData);
+        printSummary(result.currentTabData);
     }
-);
+});
