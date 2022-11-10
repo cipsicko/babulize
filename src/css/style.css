@@ -4,44 +4,26 @@
 }
 
 body {
-    width: 250px;
-    height: 530px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
+    width: 400px;
+    height: 600px;
     background-color: #f2f2f2;
+    color: rgba(0,0,0,0.87);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
 }
 body, html{
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding: 20px 5px 5px;
+    padding: 0;
 }
-#refresh{
-    display: flex;
-    width: auto;
-    height: auto;
-    justify-content: center;
-    padding: 10px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
+img{
+    display: block;
+    width: 100%;
 }
-#statusMessage{
-    opacity: 0;
-    position: absolute;
-    top: 20px;
-    left: 10px;
-    font-weight: 400;
-    font-size: 16px;
-}
-#statusMessage.loading{
-    opacity: 1;
-}
-#refresh svg{
-    width: 20px;
-    height: 20px;
+p{
+    padding: 0;
+    margin: 0;
 }
 #countrySelector{
     height: 300px;
@@ -49,23 +31,17 @@ body, html{
     overflow: hidden;
     overflow-y: auto;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 #countrySelector a{
     text-decoration: none;
     font-size: 12px;
     display: flex;
-    max-width: 50%;
     align-items: center;
     flex-direction: column;
-    padding: 5px;
     cursor: pointer;
     font-weight: 100;
     background-color: transparent;
+    margin-bottom: 5px;
     transition: all .2s linear;
 }
 #countrySelector a:hover{
@@ -88,19 +64,4 @@ fieldset legend{
 }
 fieldset + fieldset {
     margin-top: 5px;
-}
-#summary{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-#summary P{
-    margin: 0;
-}
-#summary .summary--title{
-    font-weight: 700;
-    font-size: 18px;
-}
-#summary .summary--lang img{
-    width: 50px;
 }

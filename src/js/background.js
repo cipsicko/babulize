@@ -41,6 +41,11 @@ async function getCurrentTab() {
  * Background listeners
  */
 chrome.runtime.onInstalled.addListener((tabId, changeInfo, tab) => {
+    chrome.storage.local.set({
+        optionPageData: {
+            enviroments: {}
+        }
+    });
 });
 
 //Actions on tab is activated: https://developer.chrome.com/docs/extensions/reference/tabs/#event-onActivated

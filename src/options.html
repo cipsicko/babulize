@@ -6,30 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-            color: white;
-            font-size: 80px;
-            background-color: red;
-
-            overflow: hidden;
-        }
-    </style>
+    <link href="./css/materialize.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div>
-        Hello NAME
+    <div class="container">
+        <h3 class="header">Insert environments</h3>
+        <div class="card-panel row">
+            <form id="optionForm" class="col s6">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">bookmark</i>
+                        <input placeholder="Production" id="environment_name" type="text" class="validate">
+                        <label for="environment_name">Environment name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">http</i>
+                        <input placeholder="https://production.env" id="environment_url" type="text" class="validate">
+                        <label for="environment_url">Environment URL</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 center-align">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Add
+                            <i class="material-icons right">add</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="col s6">
+                <ul id="environmentColletion" class="collection">
+                    <li class="collection-item">Alvin
+                        <a href="#!" class="secondary-content"><i class="material-icons">delete</i></a>
+                    </li>
+                    <li class="collection-item">Alvin
+                        <a href="#!" class="secondary-content"><i class="material-icons">delete</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
-    <script src="./options_script.js"></script>
+    <script src="./js/options_script.js"></script>
+    <script src="./js/materialize.min.js"></script>
 </body>
 
 </html>

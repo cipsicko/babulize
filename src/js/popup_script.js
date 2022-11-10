@@ -1,13 +1,14 @@
-
 /**
  * Build list of alternate countryes
  */
 const country = (alternate) => {
     return `
-        <a data-location="${alternate.relativeUrl}" href="#"">
-            <img src="https://flagcdn.com/${alternate.hreflang.split('-')[1].toLowerCase()}.svg" />
-            <span>${alternate.hreflang.toUpperCase()}</span>
-        </a>
+        <div class="col s3 m2">
+            <a class="" data-location="${alternate.relativeUrl}" href="#"">
+                <img class="" src="https://flagcdn.com/${alternate.hreflang.split('-')[1].toLowerCase()}.svg" />
+                <span>${alternate.hreflang.toUpperCase()}</span>
+            </a>
+        </div>
     `;
 };
 const buildSelection = (currentPageData) => {
@@ -39,32 +40,52 @@ const buildSelection = (currentPageData) => {
 };
 
 /**
+ * ====================
+ */
+
+/**
  * Build summary
  */
 const printSummary = (currentPageData) => {
     const summaryEL = document.querySelector('#summary');
-    summaryEL.innerHTML = '';
-    const summaryPageTitle = document.createElement('p');
-    const summaryCurrentLang = document.createElement('p');
 
-    summaryPageTitle.innerHTML = currentPageData.pageTitle;
-    summaryPageTitle.className = "summary--title";
-    summaryCurrentLang.innerHTML = `<img src="https://flagcdn.com/${currentPageData.pageLang.split('-')[1].toLowerCase()}.svg" />`;
-    summaryCurrentLang.className = "summary--lang";
+    let markup = `
+        <div class="valign-wrapper">
+            <div class="col s2">
+                <img class="" src="https://flagcdn.com/${currentPageData.pageLang.split('-')[1].toLowerCase()}.svg" />
+            </div>
+            <div class="col s10">
+                <p>${currentPageData.pageTitle}</p>
+            </div>
+        </div>
+    `;
 
-    summaryEL.appendChild(summaryCurrentLang);
-    summaryEL.appendChild(summaryPageTitle)
+    summaryEL.insertAdjacentHTML('beforeend', markup);
 }
+/**
+ * ====================
+ */
 
 /**
  * Check if storage has the correct data and hide the spinner
  */
- chrome.storage.local.get(['currentTabData'], function(result) {
+chrome.storage.local.get(['currentTabData'], function(result) {
      console.log('Value currently is ', result.currentTabData);
     if(!result.currentTabData){
         //No data set
     }else{
+        //Hide prelloader and show page info
+        document.querySelector('.preloader-container').classList.add('hide');
         buildSelection(result.currentTabData);
         printSummary(result.currentTabData);
+        document.querySelector('.page-info').classList.remove('hide');
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems);
+});
+/**
+ * ====================
+ */
