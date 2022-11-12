@@ -15,51 +15,61 @@
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col s12 preloader-container center-align">
-                <div class="preloader-wrapper small active">
-                    <div class="spinner-layer spinner-green-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
+        <div class="preloader-container center-align">
+            <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
                     </div>
-                </div>
-            </div>
-            
-            <div class="page-info hide">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        <div id="summary"></div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
                     </div>
-                </div>
-                                
-                <div id="countrySelector" class="card-panel row"></div>
-
-                <div class="card-panel center-align">
-                    
-                    <!-- Dropdown Trigger -->
-                    <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Environment 
-                        <i class="material-icons right">dns</i>
-                    </a>
-
-                    <!-- Dropdown Structure -->
-                    <ul id='dropdown1' class='dropdown-content'>
-                        <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-                    </ul>
-
-                    <button class="btn waves-effect waves-light" type="button" name="action">open
-                        <i class="material-icons right">open_in_new</i>
-                    </button>
-
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
                 </div>
             </div>
         </div>
+        
+        <div class="page-info hide">
+
+            <ul class="collapsible">
+                <li class="active">
+                    <div class="collapsible-header"><i class="material-icons">summarize</i>Page summary</div>
+                    <div class="collapsible-body">
+                        <div id="summary"></div>
+                    </div>
+                </li>
+                <li id="collapsible-countries">
+                    <div class="collapsible-header"><i class="material-icons">place</i>Country selector</div>
+                    <div class="collapsible-body">
+                        <div id="countrySelector" class="row"></div>
+                    </div>
+                </li>
+                <li id="collapsible-environment" class="hide">
+                    <div class="collapsible-header"><i class="material-icons">cloud_sync</i>Env selector</div>
+                    <div class="collapsible-body center-align">
+                        <!-- Dropdown Trigger -->
+                        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Environment 
+                            <i class="material-icons right">dns</i>
+                        </a>
+
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdown1' class='dropdown-content'>
+                            <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="extension-info grey lighten-2">
+        <p class="grey-text text-darken-1">
+            <span>BabuliZe - v1.0.0</span>
+            <a id="open-option-page" href="#!" class="waves-effect waves-teal btn-flat">
+                <i class="material-icons right">settings</i>
+            </a>
+        </p>
     </div>
 
     <script src="./js/popup_script.js"></script>

@@ -5,7 +5,6 @@
 
 body {
     width: 400px;
-    height: 600px;
     background-color: #f2f2f2;
     color: rgba(0,0,0,0.87);
     line-height: 1.6;
@@ -25,6 +24,15 @@ p{
     padding: 0;
     margin: 0;
 }
+.preloader-container{
+    min-height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#summary .row{
+    display: flex;
+}
 #countrySelector{
     height: 300px;
     max-height: 300px;
@@ -38,11 +46,13 @@ p{
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
     cursor: pointer;
     font-weight: 100;
     background-color: transparent;
     margin-bottom: 5px;
     transition: all .2s linear;
+    min-height: 60px;
 }
 #countrySelector a:hover{
     background-color: #dadada;
@@ -58,10 +68,9 @@ p{
     font-weight: 400;
     color: #1f1f24;
 }
-fieldset legend{
-    font-size: 12px;
-    font-weight: 100;
-}
-fieldset + fieldset {
-    margin-top: 5px;
+.extension-info p{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
 }
