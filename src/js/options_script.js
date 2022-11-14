@@ -70,12 +70,12 @@ const deleteItemFromStorage = (el) => {
     let id = el.getAttribute('data-id');
     
     chrome.storage.local.get(['optionPageData'], function(result) {
-        let localStorage = result.optionPageData.environment
+        let localStorage = result.optionPageData.environments
         delete localStorage[id];
         console.log('deleted!', localStorage);
         chrome.storage.local.set({
             optionPageData: {
-                environment : localStorage
+                environments : localStorage
             }
         });
     });

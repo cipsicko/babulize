@@ -63,14 +63,30 @@ p{
     max-width: 50px;
     height: 35px;
 }
+#countrySelector a{
+    display: flex;
+    align-items: center;
+    min-height: 35px;
+}
 #countrySelector a span{
     margin-top: 3px;
     font-weight: 400;
     color: #1f1f24;
 }
-.extension-info p{
+.extension-info{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-left: 10px;
+}
+.extension-info .ko-fi-logo {
+    display: flex;
+    align-items: center;
+}
+.extension-info .action-wrapper{
+    display: flex;
+}
+.extension-info .ko-fi-logo img{
+    height: 60%;
+    width: auto;
 }
