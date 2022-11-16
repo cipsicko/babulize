@@ -5,6 +5,13 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>BabuliZe - How to</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="apple-touch-icon" sizes="120x120" href="./ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./ico/favicon-16x16.png">
+    <link rel="manifest" href="./ico/site.webmanifest">
+    <link rel="mask-icon" href="./ico/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,7 +21,7 @@
     <nav>
         <div class="nav-wrapper grey lighten-5">
             <a href="#" class="brand-logo grey-text text-darken-1">
-                <img class="img-responsive left" src="src/src/icons/icon-128x128.png">
+                <img class="img-responsive left" src="./src/icons/icon-128x128.png">
                 BabuliZe
             </a>
         </div>
@@ -58,5 +65,11 @@
     </div>
     
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.carousel');
+            var instances = M.Carousel.init(elems, options);
+        });
+    </script>
 </body>
 </html>
