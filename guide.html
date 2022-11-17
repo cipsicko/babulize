@@ -47,8 +47,9 @@
             <h5>First installation - steps</h5>
             <ol>
                 <li>Go to <a href="https://chrome.google.com/webstore/detail/babulize/gepcibpnkokgpaakjjkpfflmeihgecde?hl=en-GB&authuser=0">BabuliZe extension page</a></li>
+                <li>Click on Add to Chrome button</li>
                 <li>Confirm the selection</li>
-                <li>Open the dropdow menù and click the icon to keep the extension always visible on the extension bar</li>
+                <li>Open the dropdow menù <i class="material-icons">extension</i>  and click the icon <i class="material-icons">push_pin</i> to keep the extension always visible on the extension bar</li>
             </ol>
         </div>
 
@@ -69,7 +70,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.carousel');
             var instances = M.Carousel.init(elems, {
-                fullWidth: true
+                fullWidth: true,
+                indicators: true
             });
         });
     </script>
